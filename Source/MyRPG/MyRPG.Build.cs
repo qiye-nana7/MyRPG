@@ -13,6 +13,12 @@ public class MyRPG : ModuleRules
 			{
 				"MyRPG"
 			});
+		
+		PrivateIncludePaths.AddRange(
+			new string[]
+			{
+				"MyRPG"
+			});
 	
 		PublicDependencyModuleNames.AddRange(
 			new string[]
