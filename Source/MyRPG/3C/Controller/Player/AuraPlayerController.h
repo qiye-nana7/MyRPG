@@ -4,7 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "EnhancedInput/Public/InputMappingContext.h"
 #include "AuraPlayerController.generated.h"
+
+class UInputMappingContext;
 
 /**
  * 
@@ -14,4 +17,12 @@ class MYRPG_API AAuraPlayerController : public APlayerController
 {
 	GENERATED_BODY()
 	
+public:
+	AAuraPlayerController();
+protected:
+	virtual void BeginPlay() override;
+	
+private:
+	UPROPERTY(EditAnywhere, Category = "Input")
+	TObjectPtr<UInputMappingContext> AuraInputContext;
 };
