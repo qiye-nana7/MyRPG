@@ -33,7 +33,7 @@ void AAuraPlayerController::BeginPlay()
 
 void AAuraPlayerController::PlayerTick(float DeltaTime)
 {
-	Super::PlayerTick(DeltaTime);
+	Super::PlayerTick(DeltaTime);// 注意不要覆盖错Tick()
 
 	CursorTrace();
 }
