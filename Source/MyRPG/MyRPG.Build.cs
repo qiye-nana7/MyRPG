@@ -27,13 +27,13 @@ public class MyRPG : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"InputCore",
-				"EnhancedInput"
+				"EnhancedInput",
+				"GameplayAbilities"
 			});
 
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				"GameplayAbilities",
 				"GameplayTags",
 				"GameplayTasks"
 			});
