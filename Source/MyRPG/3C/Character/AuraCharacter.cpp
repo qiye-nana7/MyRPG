@@ -7,6 +7,7 @@
 
 AAuraCharacter::AAuraCharacter()
 {
+	// Setup Movement
 	GetCharacterMovement()->bOrientRotationToMovement = true;
 	GetCharacterMovement()->RotationRate = FRotator(0.f, 500.f, 0.f);
 	GetCharacterMovement()->bConstrainToPlane = true;

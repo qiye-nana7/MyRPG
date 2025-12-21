@@ -4,6 +4,8 @@
 #include "EnhancedInputSubsystems.h"
 #include "EnhancedInputComponent.h"
 
+#include "Interaction/EnemyInterface.h"
+
 AAuraPlayerController::AAuraPlayerController()
 {
 	bReplicates = true;
@@ -29,6 +31,13 @@ void AAuraPlayerController::BeginPlay()
 	SetInputMode(InputModeData);
 }
 
+void AAuraPlayerController::PlayerTick(float DeltaTime)
+{
+	Super::PlayerTick(DeltaTime);
+
+	CursorTrace();
+}
+
 void AAuraPlayerController::SetupInputComponent()
 {
 	Super::SetupInputComponent();
@@ -51,5 +60,39 @@ void AAuraPlayerController::Move(const FInputActionValue& InputActionValue)
 	{
 		ControlledPawn->AddMovementInput(ForwardDirection, InputAxisVector.Y);
 		ControlledPawn->AddMovementInput(RightDirection, InputAxisVector.X);
+	}
+}
+
+void AAuraPlayerController::CursorTrace()
+{
+	FHitResult HitResult;
+	GetHitResultUnderCursor(ECC_Visibility, false, HitResult);
+	if (!HitResult.bBlockingHit) return;
+	
+	LastActor = ThisActor;
+	ThisActor = Cast<IEnemyInterface>(HitResult.GetActor());
+	/*
+	 * Line trace from cursor. There are several sceneries:
+	 * 1. ThisActor is nullptr and LastActor is nullptr.
+	 *		- Do nothing.
+	 * 2. ThisActor is nullptr and LastActor is not nullptr.
+	 *		- UnHighlight LastActor.
+	 * 3. ThisActor is not nullptr and LastActor is nullptr.
+	 *		- Highlight ThisActor.
+	 * 4. ThisActor is not nullptr and LastActor is not nullptr and ThisActor != LastActor.
+	 *		- UnHighlight LastActor, Highlight ThisActor.
+	 * 5. ThisActor is not nullptr and LastActor is not nullptr and ThisActor == LastActor.
+	 *		- Do nothing.
+	 */
+	if (ThisActor != nullptr && LastActor == nullptr)
+	{
+		ThisActor->HighlightActor();
+	} else if (ThisActor == nullptr && LastActor != nullptr)
+	{
+		LastActor->UnHighlightActor();
+	} else if (ThisActor != nullptr && LastActor != nullptr && ThisActor != LastActor)
+	{
+		ThisActor->HighlightActor();
+		LastActor->UnHighlightActor();
 	}
 }
