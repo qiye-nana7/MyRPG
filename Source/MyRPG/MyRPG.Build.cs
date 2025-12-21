@@ -33,7 +33,9 @@ public class MyRPG : ModuleRules
 		PrivateDependencyModuleNames.AddRange(
 			new string[]
 			{
-				
+				"GameplayAbilities",
+				"GameplayTags",
+				"GameplayTasks"
 			});
 
 		// Uncomment if you are using Slate UI
