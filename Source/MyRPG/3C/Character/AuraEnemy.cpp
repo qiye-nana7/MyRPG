@@ -9,7 +9,7 @@
 
 AAuraEnemy::AAuraEnemy()
 {
-	// Setup Custom Depth -- highlight
+	// Setup Custom Depth -- highlight depends
 	GetMesh()->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	Weapon->SetCustomDepthStencilValue(CUSTOM_DEPTH_RED);
 	
@@ -18,6 +18,7 @@ AAuraEnemy::AAuraEnemy()
 	// Setup Ability System
 	AbilitySystemComponent = CreateDefaultSubobject<UAuraAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetIsReplicated(true);
+	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Minimal);
 	AttributeSet = CreateDefaultSubobject<UAuraAttributeSet>("AttributeSet");
 	
 }
