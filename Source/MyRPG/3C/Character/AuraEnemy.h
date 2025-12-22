@@ -17,6 +17,10 @@ class MYRPG_API AAuraEnemy : public AAuraCharacterBase, public IEnemyInterface
 	
 	AAuraEnemy();
 public:
+	// enemy interface
 	virtual void HighlightActor() override;
 	virtual void UnHighlightActor() override;
+
+protected:
+	virtual void BeginPlay() override;
 };
