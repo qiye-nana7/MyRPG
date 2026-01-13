@@ -4,17 +4,17 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AuarEffectActor.generated.h"
+#include "AuraEffectActor.generated.h"
 
 class USphereComponent;
 
 UCLASS()
-class MYRPG_API AAuarEffectActor : public AActor
+class MYRPG_API AAuraEffectActor : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
-	AAuarEffectActor();
+	AAuraEffectActor();
 
 	UFUNCTION()
 	virtual void OnOverlep(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);

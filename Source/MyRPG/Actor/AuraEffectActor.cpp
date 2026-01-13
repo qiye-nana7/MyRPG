@@ -1,7 +1,7 @@
 // Learning Aura Project Only
 
 
-#include "Actor/AuarEffectActor.h"
+#include "Actor/AuraEffectActor.h"
 
 #include "AbilitySystemComponent.h"
 #include "AbilitySystemInterface.h"
@@ -9,7 +9,7 @@
 #include "Components/SphereComponent.h"
 
 // Sets default values
-AAuarEffectActor::AAuarEffectActor()
+AAuraEffectActor::AAuraEffectActor()
 {
  	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = false;
@@ -21,7 +21,7 @@ AAuarEffectActor::AAuarEffectActor()
 	Sphere->SetupAttachment(GetRootComponent());
 }
 
-void AAuarEffectActor::OnOverlep(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void AAuraEffectActor::OnOverlep(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
 	// TODO: Use Gameplay Effect instead. For now, using const_cast as a hack! 
@@ -35,18 +35,18 @@ void AAuarEffectActor::OnOverlep(UPrimitiveComponent* OverlappedComponent, AActo
 	}
 }
 
-void AAuarEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+void AAuraEffectActor::EndOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
 	UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	
 }
 
 // Called when the game starts or when spawned
-void AAuarEffectActor::BeginPlay()
+void AAuraEffectActor::BeginPlay()
 {
 	Super::BeginPlay();
 
-	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuarEffectActor::OnOverlep);
-	Sphere->OnComponentEndOverlap.AddDynamic(this, &AAuarEffectActor::EndOverlap);
+	Sphere->OnComponentBeginOverlap.AddDynamic(this, &AAuraEffectActor::OnOverlep);
+	Sphere->OnComponentEndOverlap.AddDynamic(this, &AAuraEffectActor::EndOverlap);
 }
 
