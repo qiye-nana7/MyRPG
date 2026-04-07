@@ -7,7 +7,21 @@
 #include "AuraEffectActor.generated.h"
 
 class UGameplayEffect;
-class USphereComponent;
+
+UENUM(BlueprintType)
+enum class EEffectApplicationPolicy : uint8
+{
+	ApplyOnOverlap,
+	ApplyOnEndOverlap,
+	DoNotApply
+};
+
+UENUM(BlueprintType)
+enum class EEffectRemovalPolicy : uint8
+{
+	RemoveOnEndOverlap,
+	DoNotRemove
+};
 
 UCLASS()
 class MYRPG_API AAuraEffectActor : public AActor
@@ -22,10 +36,39 @@ protected:
 	
 	UFUNCTION(BlueprintCallable)
 	void ApplyEffectToTarget(AActor* TargetActor, TSubclassOf<UGameplayEffect> GameplayEffectClass);
+	
+	void OnOverlap(AActor* TargetActor);
+	
+	void OnEndOverlap(AActor* TargetActor);
 
+	/* 用于蓝图子类配置具体GE及其功能策略的静态变量 */
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	bool bDestoryOnEffectRemoval = false;
+	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
 	TSubclassOf<UGameplayEffect> InstantGameplayEffectClass;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectApplicationPolicy InstantApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectRemovalPolicy InstantRemovalPolicy;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
 	TSubclassOf<UGameplayEffect> DurationGameplayEffectClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectApplicationPolicy DurationApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectRemovalPolicy DurationRemovalPolicy;
+	
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	TSubclassOf<UGameplayEffect> InfiniteGameplayEffectClass;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectApplicationPolicy InfiniteApplicationPolicy = EEffectApplicationPolicy::DoNotApply;
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Effect");
+	EEffectRemovalPolicy InfiniteRemovalPolicy = EEffectRemovalPolicy::RemoveOnEndOverlap;
 };
